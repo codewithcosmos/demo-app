@@ -1,0 +1,29 @@
+body {
+    background-color: #f8f9fa;
+    color: #495057;
+    padding-top: 60px; /* Adjust for fixed navbar */
+  }
+  .container {
+    margin-top: 30px;
+  }
+  .feature {
+    margin-bottom: 40px;
+  }
+  .feature h2 {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+  }
+  .feature-description {
+    margin-top: 10px;
+  }
+  .feature-description p {
+    line-height: 1.6;
+  }
+  .feature-media {
+    margin-top: 20px;
+  }
+  .feature-media img {
+    max-width: 100%;
+    height: auto;
+  }

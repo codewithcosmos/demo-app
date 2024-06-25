@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
         category: "Domain Registration",
         services: [
           { name: ".co.za Domain", price: 100 },
-          { name: ".com Domain", price: 250 },
+          { name: ".com Domain", price: 150 },
           { name: "Other Domains", price: 200 }
         ]
       },
@@ -41,6 +41,22 @@ document.addEventListener("DOMContentLoaded", function() {
           { name: "Company Registration with VAT", price: 2000 },
           { name: "Company Registration with Trademark", price: 3000 }
         ]
+      },
+      {
+        category: "Graphic Design",
+        services: [
+          { name: "Logo Design", price: 2000 },
+          { name: "Business Card Design", price: 500 },
+          { name: "Brochure Design", price: 1500 }
+        ]
+      },
+      {
+        category: "Online Marketing",
+        services: [
+          { name: "Social Media Management", price: 3000 },
+          { name: "Email Marketing Campaign", price: 2000 },
+          { name: "Pay-Per-Click Advertising", price: 5000 }
+        ]
       }
     ];
   
@@ -48,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
     products.forEach(product => {
       const categoryDiv = document.createElement("div");
-      categoryDiv.classList.add("mt-4");
+      categoryDiv.classList.add("service-category");
   
       const categoryTitle = document.createElement("h2");
       categoryTitle.textContent = product.category;
@@ -59,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
       product.services.forEach(service => {
         const serviceItem = document.createElement("li");
-        serviceItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+        serviceItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center", "service-item");
         serviceItem.textContent = service.name;
   
         const servicePrice = document.createElement("span");
