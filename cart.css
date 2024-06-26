@@ -1,16 +1,10 @@
 body {
-    background-color: #fff;
+    background-color: #f8f9fa;
     color: #495057;
     padding-top: 60px; /* Adjust for fixed navbar */
   }
-  /* Container Style */
   .container {
     margin-top: 30px;
-  }
-
-  /* Card Styles */
-  .card {
-    margin-bottom: 20px;
   }
   .card {
     margin-bottom: 20px;
@@ -18,4 +12,3 @@ body {
   .btn {
     margin-right: 10px;
   }
-  
