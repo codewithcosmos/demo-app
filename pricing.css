@@ -5,16 +5,19 @@ body {
   }
   /* Container Style */
   .container {
-    margin-top: 30px;
+    margin-top: 20px;
+  }
+
+  .fs-1{
+    font-size: 3em;
+    font-weight: bold;
   }
 
   /* Card Styles */
   .card {
     margin-bottom: 20px;
   }
-  .card {
-    margin-bottom: 20px;
-  }
+  
   .btn {
     margin-right: 10px;
   }

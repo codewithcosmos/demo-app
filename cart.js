@@ -35,7 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       if (cart.length > 0) {
         alert('Proceeding to payment...');
-        // Implement payment logic here
+        // Store cart details in localStorage or sessionStorage for the payment page
+        localStorage.setItem('cart', JSON.stringify(cart));
+        // Navigate to the payment page
+        window.location.href = 'payment.html';
       } else {
         alert('Your cart is empty.');
       }

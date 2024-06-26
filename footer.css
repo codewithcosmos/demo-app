@@ -8,10 +8,22 @@ footer {
     bottom: 0;
     padding: 10px 0;
   }
-#scrollToTop {
+#backToTopBtn {
     position: fixed;
-    bottom: 25px; /* Adjusted to be above the fixed footer */
+    bottom: 30px; /* Adjusted to be above the fixed footer */
+    right: 20px;
+  }
+  #backToTopBtn {
+    position: fixed;
+    bottom: 20px;
     right: 20px;
     display: none;
-  }
-  
+}
+
+#backToTopBtn .btn {
+    transition: all 0.3s ease-in-out;
+}
+
+#backToTopBtn .btn.show {
+    display: block;
+}
