@@ -1,14 +1,20 @@
 body {
-    background-color: #b2b2b3;
+    background-color: #e9e7e7;
     color: #495057;
-    padding-top: 60px; /* Adjust for fixed navbar */
+    padding-top: 30px; /* Adjust for fixed navbar */
   }
   .container {
-    margin-top: 30px;
+    margin-top: 20px;
   }
   .card {
     margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
   }
   .btn {
     margin-right: 10px;
+  }
+
+  .fs-1 {
+    font-weight: bold;
   }

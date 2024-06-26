@@ -1,14 +1,15 @@
 /* General Styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     color: #333;
 }
 
 /* Container Styles */
 .container {
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    padding: 20px;
 }
 
 /* Form Heading */
