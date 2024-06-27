@@ -8,11 +8,7 @@ footer {
     bottom: 0;
     padding: 10px 0;
   }
-#backToTopBtn {
-    position: fixed;
-    bottom: 30px; /* Adjusted to be above the fixed footer */
-    right: 20px;
-  }
+  
   #backToTopBtn {
     position: fixed;
     bottom: 20px;

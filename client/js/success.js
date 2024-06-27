@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function sendThankYouEmail(name, email) {
-    emailjs.init("codewithcosmos@gmail.com"); // Replace with your userID from EmailJS
+    emailjs.init("p3V3MYtW0RRdbvMDq"); // Replace with your userID from EmailJS
 
     emailjs.send("service_6l4tqxt", "template_2eeo12m", {
         to_name: name,
@@ -27,11 +27,11 @@ function sendThankYouEmail(name, email) {
             If you have any questions or need further assistance, please do not hesitate to contact us.
 
             Best regards,
-            Your Company Name
+            Kasiwebsites team
         `
     }).then(
         function(response) {
-            alert("Thank you email sent successfully!");
+            alert("Thank you, email sent successfully!");
         },
         function(error) {
             alert("Failed to send thank you email: " + error);

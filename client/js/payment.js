@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Simulate payment processing
         setTimeout(() => {
             alert('Payment processed successfully!');
-            window.location.href = `success.html?name=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}`;
+            window.location.href = `/client/success.html?name=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}`;
         }, 1000);
     });
 });
