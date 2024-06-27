@@ -1,0 +1,19 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    color: #28a745;
+    margin-top: 20px;
+}
+
+p.lead {
+    font-size: 1.25rem;
+    margin-top: 10px;
+}
+
+.btn {
+    margin-top: 20px;
+    margin-right: 10px;
+}
