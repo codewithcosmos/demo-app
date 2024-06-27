@@ -1,12 +1,5 @@
 {
-  "name": "demo-app",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "codewithcosmos",
-  "license": "ISC",
-  "description": "Full stake website service provider"
+  "dependencies": {
+    "nodejs": "^0.0.0"
+  }
 }
