@@ -30,7 +30,22 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       });
     }
-  
+      // Function to render the cart order details above the payment form
+  function renderCartItems(items) {
+    let html = '<h3>Cart Order Details</h3>';
+    html += '<table class="table">';
+    html += '<thead><tr><th scope="col">Product</th><th scope="col">Quantity</th><th scope="col">Description</th></tr></thead>';
+    html += '<tbody>';
+    
+    items.forEach(item => {
+      html += `<tr><td>${item.product}</td><td>${item.quantity}</td><td>${item.description}</td></tr>`;
+    });
+
+    html += '</tbody></table>';
+    cartDetailsContainer.innerHTML = html;
+  }
+   
+
     document.getElementById('proceedToPaymentBtn').addEventListener('click', function () {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       if (cart.length > 0) {
