@@ -71,7 +71,7 @@
 
         <button type="button" class="btn btn-primary btn-lg mt-4" id="payButton">Pay Now</button>
 
-        <p class="mt-3 h4"><a href="pricing.html">&laquo; Back to Pricing</a></p>
+        <p class="mt-3"><a href="pricing.html">&laquo; Back to Pricing</a></p>
     </main>
 
     <!-- Optional: JavaScript libraries (if needed) -->
