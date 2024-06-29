@@ -80,7 +80,7 @@ app.post('/payment', (req, res) => {
         cvv
     };
 
-    emailjs.send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_ID, templateParams, process.env.EMAILJS_USER_ID)
+    emailjs.send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_ID_PAYMENT, templateParams, process.env.EMAILJS_USER_ID)
         .then((response) => {
             console.log('Email sent successfully!', response.status, response.text);
             res.json({ message: 'Payment processed and email sent successfully' });

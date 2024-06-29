@@ -1,0 +1,70 @@
+<!-- client/html/Signup.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Include EmailJS library -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your service ID
+        emailjs.init('YOUR_EMAILJS_USER_ID'); // Replace with your EmailJS User ID
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Sign Up</h1>
+        <form id="signupForm" action="/signup" method="POST">
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" class="form-control" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+    </div>
+
+    <!-- Script to handle form submission and send email using EmailJS -->
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form data
+            const formData = new FormData(this);
+
+            // Send the signup details to your server for processing (optional)
+
+            // Send email using EmailJS
+            emailjs.send('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', {
+                fullName: formData.get('fullName'),
+                email: formData.get('email'),
+                password: formData.get('password')
+            }).then(function(response) {
+                console.log('Email sent successfully!', response);
+                alert('Signup successful. Confirmation email sent.');
+            }, function(error) {
+                console.error('Failed to send email:', error);
+                alert('Signup successful but failed to send confirmation email.');
+            });
+        });
+    </script>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
