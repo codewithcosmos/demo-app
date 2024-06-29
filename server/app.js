@@ -1,7 +1,10 @@
-// server/app.js
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+const axios = require('axios');
+const crypto = require('crypto');
+
 const app = express();
 
 // Set EJS as the templating engine
@@ -12,8 +15,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, '../client')));
 
 // Middleware to parse JSON and URL-encoded data
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Default route to serve the index.html file
 app.get('/', (req, res) => {
@@ -53,6 +56,43 @@ app.post('/payment', (req, res) => {
     // Send a confirmation response to the client
     res.json({ message: 'Payment processed successfully' });
 });
+
+// Route to handle PayFast form submission
+app.post('/payfast', (req, res) => {
+    const { fullName, email, address, city, province, postalCode, paymentMethod } = req.body;
+
+    const paymentData = {
+        merchant_id: process.env.PAYFAST_MERCHANT_ID,
+        merchant_key: process.env.PAYFAST_MERCHANT_KEY,
+        return_url: process.env.PAYFAST_RETURN_URL,
+        cancel_url: process.env.PAYFAST_CANCEL_URL,
+        notify_url: process.env.PAYFAST_NOTIFY_URL,
+        name_first: fullName.split(' ')[0],
+        name_last: fullName.split(' ')[1],
+        email_address: email,
+        m_payment_id: `PF-${new Date().getTime()}`, // Unique payment ID
+        amount: '500.00', // Example amount
+        item_name: 'Example Product',
+        item_description: 'This is an example product description.',
+        email_confirmation: 1,
+        confirmation_address: email,
+    };
+    fetch('/payfast', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.text())
+    .then(html => {
+        document.open();
+        document.write(html);
+        document.close();
+    })
+    .catch(error => console.error('Error:', error));
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;

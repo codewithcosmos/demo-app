@@ -1,5 +1,3 @@
-// client/js/payment.js
-
 document.addEventListener('DOMContentLoaded', function () {
     const cartItemsContainer = document.getElementById('cart-items');
     const payButton = document.getElementById('payButton');
@@ -51,9 +49,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     renderCartItems(cart);
 
-    // Handle payment form submission
-    payButton.addEventListener('click', function () {
-        // Perform form validation
+    // Handle payment form submission via PayFast
+    paymentForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const address = document.getElementById('address').value;
@@ -67,19 +66,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 paymentMethod: paymentMethod
             };
 
+            fetch('/payfast', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text())
+            .then(html => {
+                document.open();
+                document.write(html);
+                document.close();
+            })
+            .catch(error => console.error('Error:', error));
+
             // Example of how to use formData to send email using emailJS
-            // emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData)
-            //   .then(response => {
-            //     console.log('SUCCESS!', response.status, response.text);
-            //   }, err => {
-            //     console.log('FAILED...', err);
-            //   });
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    alert("Thank you for your payment! You will receive an email shortly.");
+                    window.location.href = "thankyou.html"; // Redirect to thank you page
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('Oops! Something went wrong with email sending. Please check your email configuration.');
+                });
 
-            // Display confirmation message to user
-            alert("Thank you for your payment! You will receive an email shortly.");
-
-            // Redirect to the thank you page
-            window.location.href = "thankyou.html"; // Replace with your actual thank you page
         } else {
             alert('Please fill out all the fields.');
         }
@@ -94,32 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    paymentForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const formData = {
-            fullName: document.getElementById('fullName').value,
-            email: document.getElementById('email').value,
-            address: document.getElementById('address').value,
-            city: document.getElementById('city').value,
-            province: document.getElementById('province').value,
-            postalCode: document.getElementById('postalCode').value,
-            paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
-            cardNumber: document.getElementById('cardNumber').value,
-            expiration: document.getElementById('expiration').value,
-            cvv: document.getElementById('cvv').value
-        };
-
-        console.log('Payment Form Data:', formData);
-
-        // Implement your payment processing logic here
-        // For example, integrate with a payment gateway like Stripe or PayFast
-        // ...
-
-        // Display a confirmation message to the user
-        alert("Thank you for your payment! You will receive a confirmation email shortly.");
-
-        // Redirect to the thank you page
-        window.location.href = "thankyou.html";
+    // Handle payButton click event separately if needed
+    payButton.addEventListener('click', function () {
+        // Perform form validation or any specific action
     });
 });
