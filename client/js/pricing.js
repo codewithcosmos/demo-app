@@ -1,3 +1,5 @@
+// client/js/pricing.js
+
 document.addEventListener("DOMContentLoaded", function () {
   function addToCart(productName, price) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -37,5 +39,16 @@ document.addEventListener("DOMContentLoaded", function () {
         addToCart(product.name, product.price);
       });
     }
+  });
+
+  // Handle adding items to cart from other dynamic buttons
+  const pricingButtons = document.querySelectorAll('.pricing-button');
+  pricingButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const itemName = this.dataset.itemName;
+      const itemPrice = parseFloat(this.dataset.itemPrice); // Assuming price is stored as data attribute
+      addToCart(itemName, itemPrice);
+      alert(`${itemName} added to cart!`);
+    });
   });
 });
