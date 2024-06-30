@@ -6,17 +6,11 @@
   <title>Signup</title>
   <!-- Bootstrap CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    (function() {
-      emailjs.init('EMAILJS_USER_ID'); // Replace 'YOUR_EMAILJS_USER_ID' with your EmailJS user ID
-    })();
-  </script>
 </head>
 <body>
   <div class="container mt-5">
     <h2>Signup Form</h2>
-    <form id="signup-form" class="needs-validation" novalidate>
+    <form action="/api/users/signup" method="POST" class="needs-validation" novalidate>
       <div class="form-group">
         <label for="username">Username:</label>
         <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" required>
@@ -42,34 +36,24 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script>
-    document.getElementById('signup-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      
-      // Form validation
-      var form = event.target;
-      if (form.checkValidity() === false) {
-        event.stopPropagation();
-      } else {
-        // Prepare the email data
-        var emailParams = {
-          username: form.username.value,
-          email: form.email.value,
-        };
-
-        // Send the email
-        emailjs.send('EMAILJS_SERVICE_ID', 'EMAILJS_TEMPLATE_ID', emailParams)
-          .then(function(response) {
-            console.log('SUCCESS!', response.status, response.text);
-            alert('Signup successful! Please check your email for confirmation.');
-            form.reset();
-          }, function(error) {
-            console.error('FAILED...', error);
-            alert('Signup failed. Please try again.');
-          });
-      }
-
-      form.classList.add('was-validated');
-    });
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
   </script>
 </body>
 </html>

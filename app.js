@@ -1,11 +1,21 @@
+// Kasiwebsites/app.js
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const axios = require('axios');
-const crypto = require('crypto');
+const mongoose = require('mongoose');
 const emailjs = require('emailjs-com'); // Ensure you have emailjs-com installed
 
+// Import routes
+const paymentRoutes = require('./server/routes/paymentRoutes');
+const productsRoutes = require('./server/routes/productsRoutes');
+const userRoutes = require('./server/routes/userRoutes');
+const cartRoutes = require('./server/routes/cartRoutes');
+const adminRoutes = require('./server/routes/adminRoutes');
+const quoteRoutes = require('./server/routes/quoteRoutes');
+const invoiceRoutes = require('./server/routes/invoiceRoutes');
+
+// Create Express app
 const app = express();
 
 // Middleware to parse JSON and URL-encoded data
@@ -15,21 +25,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Serve static files from the public directory
 app.use(express.static('public'));
 
-// Routes
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/products', require('./routes/products'));
-app.use('/api/cart', require('./routes/cartRoutes'));
-app.use('/api/admin', require('./routes/adminRoutes'));
-app.use('/api/quotes', require('./routes/quoteRoutes'));
-app.use('/api/invoices', require('./routes/invoiceRoutes'));
-app.use('/api/payment', require('./routes/paymentRoutes'));
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.log(err));
 
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'server/views'));
 
 // Serve static files from the "client" directory
 app.use(express.static(path.join(__dirname, '../client')));
+
+// Routes
+app.use('/api/users', userRoutes);
+app.use('/api/products', productsRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/quotes', quoteRoutes);
+app.use('/api/invoices', invoiceRoutes);
+app.use('/api/payment', paymentRoutes);
 
 // Default route to serve the index.html file
 app.get('/', (req, res) => {
@@ -150,8 +165,12 @@ app.post('/localbank', (req, res) => {
         });
 });
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
 // Start the server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
