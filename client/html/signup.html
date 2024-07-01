@@ -1,75 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Signup</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    (function() {
-      emailjs.init('EMAILJS_USER_ID'); // Replace 'YOUR_EMAILJS_USER_ID' with your EmailJS user ID
-    })();
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasiwebsites - Sign Up</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/client/css/pricing.css">
 </head>
 <body>
-  <div class="container mt-5">
-    <h2>Signup Form</h2>
-    <form id="signup-form" class="needs-validation" novalidate>
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" required>
-        <div class="invalid-feedback">Please enter a username.</div>
-      </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
-        <div class="invalid-feedback">Please enter a valid email address.</div>
-      </div>
-      <div class="form-group">
-        <label for="pwd">Password:</label>
-        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password" required>
-        <div class="invalid-feedback">Please enter a password.</div>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Sign Up to Kasiwebsites</h2>
+                    <form id="signupForm">
+                        <div class="form-group">
+                            <label for="name">Your Name:</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email:</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label" for="terms">I accept the <a href="/terms.html" target="_blank">Terms and Conditions</a></label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-  <!-- Bootstrap JS and dependencies -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <script>
-    document.getElementById('signup-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      
-      // Form validation
-      var form = event.target;
-      if (form.checkValidity() === false) {
-        event.stopPropagation();
-      } else {
-        // Prepare the email data
-        var emailParams = {
-          username: form.username.value,
-          email: form.email.value,
-        };
-
-        // Send the email
-        emailjs.send('EMAILJS_SERVICE_ID', 'EMAILJS_TEMPLATE_ID', emailParams)
-          .then(function(response) {
-            console.log('SUCCESS!', response.status, response.text);
-            alert('Signup successful! Please check your email for confirmation.');
-            form.reset();
-          }, function(error) {
-            console.error('FAILED...', error);
-            alert('Signup failed. Please try again.');
-          });
-      }
-
-      form.classList.add('was-validated');
-    });
-  </script>
+<!-- Bootstrap JS, Axios, and EmailJS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+    (function() {
+      emailjs.init('use_p3V3MYtW0RRdbvMDq')
+    })();
+</script>
+<!-- Custom JS -->
+<script src="/client/js/signup.js"></script>
 </body>
 </html>

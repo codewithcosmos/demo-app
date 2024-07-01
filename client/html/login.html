@@ -1,70 +1,83 @@
-<!-- client/html/Signup.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-
+    <title>Kasiwebsites - Login</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- Include EmailJS library -->
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script>
-        // Initialize EmailJS with your service ID
-        emailjs.init('YOUR_EMAILJS_USER_ID'); // Replace with your EmailJS User ID
-    </script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Kasiwebsites CSS -->
+    <link rel="stylesheet" href="/client/css/pricing.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Sign Up</h1>
-        <form id="signupForm" action="/signup" method="POST">
-            <div class="form-group">
-                <label for="fullName">Full Name:</label>
-                <input type="text" class="form-control" id="fullName" name="fullName" required>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Log in to Kasiwebsites</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <div class="input-group">
+                                <input type="password" id="password" name="password" class="form-control" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-eye-slash" id="togglePassword"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                        <small class="form-text text-muted mt-2 text-center">
+                            <a href="#" data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password?</a>
+                        </small>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Sign Up</button>
-        </form>
+        </div>
     </div>
+</div>
 
-    <!-- Script to handle form submission and send email using EmailJS -->
-    <script>
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            // Get form data
-            const formData = new FormData(this);
-
-            // Send the signup details to your server for processing (optional)
-
-            // Send email using EmailJS
-            emailjs.send('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', {
-                fullName: formData.get('fullName'),
-                email: formData.get('email'),
-                password: formData.get('password')
-            }).then(function(response) {
-                console.log('Email sent successfully!', response);
-                alert('Signup successful. Confirmation email sent.');
-            }, function(error) {
-                console.error('Failed to send email:', error);
-                alert('Signup successful but failed to send confirmation email.');
-            });
-        });
-    </script>
-
-    <!-- Bootstrap JS (Optional) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Forgot Password Modal -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Your Password?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="forgotPasswordForm">
+                    <div class="form-group">
+                        <label for="email">Enter your Email:</label>
+                        <input type="email" id="forgotEmail" name="email" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- EMAILJS -->
+<script type="text/javascript">
+    emailjs.init('p3V3MYtW0RRdbvMDq')
+  </script>
+<!-- Bootstrap JS, jQuery, and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Font Awesome for icons -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+<!-- Custom JS -->
+<script src="/client/js/login.js"></script>
 </body>
 </html>

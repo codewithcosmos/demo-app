@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const emailjs = require('emailjs-com'); // Ensure you have emailjs-com installed
 
 // Import routes
@@ -25,6 +26,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Serve static files from the public directory
 app.use(express.static('public'));
 
+// Serve static files from the "client" directory
+app.use(express.static(path.join(__dirname, '../client')));
+
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
@@ -33,9 +37,6 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'server/views'));
-
-// Serve static files from the "client" directory
-app.use(express.static(path.join(__dirname, '../client')));
 
 // Routes
 app.use('/api/users', userRoutes);
@@ -69,6 +70,41 @@ app.get('/payment', (req, res) => {
         bankAccountNumber: process.env.BANK_ACCOUNT_NUMBER,
         bankBranchCode: process.env.BANK_BRANCH_CODE
     });
+});
+// Route to handle user registration (signup)
+app.post('/signup', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+
+        // Validate inputs
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: 'Please provide name, email, and password' });
+        }
+
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email already exists' });
+        }
+
+        // Hash password before storing in database
+        const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+
+        // Create a new user instance
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword
+        });
+
+        // Save the user to the database
+        await newUser.save();
+
+        res.status(201).json({ message: 'User registered successfully' });
+    } catch (err) {
+        console.error('Signup error:', err);
+        res.status(500).json({ error: 'Signup failed. Please try again.' });
+    }
 });
 
 // Route to handle payment form submission
@@ -163,6 +199,61 @@ app.post('/localbank', (req, res) => {
             console.error('Failed to send email:', err);
             res.status(500).json({ message: 'Failed to submit local bank details or send email' });
         });
+});
+
+// Define a schema for User
+const userSchema = new mongoose.Schema({
+    name: String,
+    email: { type: String, unique: true },
+    password: String
+});
+const User = mongoose.model('User', userSchema);
+
+// Sign-up endpoint
+app.post('/signup', async (req, res) => {
+    try {
+        // Hash password before storing in database
+        const hashedPassword = await bcrypt.hash(req.body.password, 10); // 10 is the salt rounds
+
+        // Create a new user instance
+        const newUser = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword
+        });
+
+        // Save the user to the database
+        await newUser.save();
+
+        res.status(201).json({ message: 'User registered successfully' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Login endpoint
+app.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Find user by email
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Compare password
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (!passwordMatch) {
+            return res.status(401).json({ message: 'Invalid password' });
+        }
+
+        res.status(200).json({ message: 'Login successful' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 // Error handling middleware

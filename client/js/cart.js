@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${item.name}</td>
-          <td>${item.price}</td>
+          <td>R${item.price}</td>
           <td><button class="btn btn-danger remove-item-btn" data-item="${item.name}">Remove</button></td>
         `;
         cartTableBody.appendChild(row);

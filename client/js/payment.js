@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="card mb-3">
               <div class="card-body">
                 <h5 class="card-title">${item.name}</h5>
-                <p class="card-text">$${item.price}</p>
+                <p class="card-text">R${item.price}</p>
                 <button class="btn btn-danger remove-item-btn" data-item="${item.name}">Remove</button>
               </div>
             </div>
