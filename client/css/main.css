@@ -13,12 +13,12 @@ body {
   .service-category {
     margin-top: 40px;
   }
-  .service-category h2 {
+  .service-category h1, h2 {
     border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
     margin-bottom: 20px;
   }
-  .service-item {
+  .service-item h1{
     background-color: #1f1f1f;
     border: 1px solid #007bff;
     margin-bottom: 10px;
@@ -31,3 +31,4 @@ body {
     content: " 00";
     font-size: 0.75em;
   }
+  

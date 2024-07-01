@@ -23,6 +23,7 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
                 message: 'Welcome to Kasiwebsites! We are glad to have you with us.'
             };
 
+            // Send verification email using EmailJS
             emailjs.send('service_6l4tqxt', 'template_2eeo12m', emailParams)
                 .then(function(response) {
                     console.log('Email sent successfully:', response.status, response.text);
@@ -32,10 +33,10 @@ document.getElementById('signupForm').addEventListener('submit', async (event) =
                 });
 
             alert('Sign up successful! Please check your email to verify your account.');
-            window.location.href = '/client/html/login.html'; // Redirect to login page
+            window.location.href = '/client/html/login.html';
         } else {
             const result = await response.json();
-            alert(result.message); // Display error message from server
+            alert(result.message);
         }
     } catch (error) {
         console.error('Error:', error);
