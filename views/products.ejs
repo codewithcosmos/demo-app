@@ -1,0 +1,12 @@
+<!-- Example products.ejs -->
+<h1>Products List</h1>
+<ul>
+  <% products.forEach(product => { %>
+    <li>
+      <h2><%= product.name %></h2>
+      <p>Price: <%= product.price %></p>
+      <p>Description: <%= product.description %></p>
+      <img src="<%= product.imageUrl %>" alt="<%= product.name %>">
+    </li>
+  <% }); %>
+</ul>
