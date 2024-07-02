@@ -5,7 +5,18 @@
   "main": "app.js",
   "author": "codewithcosmos",
   "license": "ISC",
-  "keywords": ["web development", "full-stack", "web design", "website maintenance", "SEO", "graphic-design","web-maintenance", "web-hosting", "company-registering", "domain-registering"], 
+  "keywords": [
+    "web development",
+    "full-stack",
+    "web design",
+    "website maintenance",
+    "SEO",
+    "graphic-design",
+    "web-maintenance",
+    "web-hosting",
+    "company-registering",
+    "domain-registering"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/yourusername/kasiwebsites"
@@ -25,6 +36,7 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.4",
+    "pdfkit": "^0.15.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "webpack": "^5.92.1",

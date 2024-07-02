@@ -1,3 +1,4 @@
+// server/models/Invoice.js
 const mongoose = require('mongoose');
 
 // Basic invoice schema with customer details

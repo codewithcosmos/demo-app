@@ -1,40 +1,15 @@
 // server/routes/invoiceRoutes.js
 
+// Required modules
 const express = require('express');
 const router = express.Router();
-const Invoice = require('../models/Invoice'); // Adjust path based on your structure
+const invoiceController = require('../controllers/invoiceController'); // Adjust path based on your structure
 
 // GET request to fetch all invoices
-router.get('/', async (req, res) => {
-  try {
-    const invoices = await Invoice.find();
-    res.json(invoices);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server Error' });
-  }
-});
+router.get('/', invoiceController.getAllInvoices);
 
 // POST request to create a new invoice
-router.post('/', async (req, res) => {
-  const { customerName, products, totalAmount } = req.body;
+router.post('/', invoiceController.createInvoice);
 
-  try {
-    // Create a new invoice instance
-    const newInvoice = new Invoice({
-      customerName,
-      products,
-      totalAmount
-    });
-
-    // Save the new invoice to the database
-    const savedInvoice = await newInvoice.save();
-
-    res.status(201).json(savedInvoice);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server Error' });
-  }
-});
-
+// Export the router
 module.exports = router;
