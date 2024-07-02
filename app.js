@@ -34,11 +34,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Set up view engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'server/views'));
-
-// Define routes
+// API routes
 app.use('/api/users', userRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/cart', cartRoutes); // Check if this route is correctly defined
@@ -47,7 +43,7 @@ app.use('/api/quotes', quoteRoutes); // Check if this route is correctly defined
 app.use('/api/invoices', invoiceRoutes); // Check if this route is correctly defined
 app.use('/api/payment', paymentRoutes);
 
-// Serve static HTML files
+// Serve main HTML files
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'html', 'index.html'));
 });
