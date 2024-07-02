@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const helmet = require('helmet');
+
 const User = require('./server/models/User'); // Adjusted path based on your file structure
 const productsRoutes = require('./server/routes/productsRoutes');
 const paymentRoutes = require('./server/routes/paymentRoutes');
