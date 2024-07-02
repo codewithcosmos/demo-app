@@ -3,15 +3,28 @@ const Invoice = require('../models/Invoice');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 
-exports.createInvoice = async (req, res) => {
+// Fetch all invoices
+exports.getAllInvoices = async (req, res) => {
     try {
-        const invoiceData = req.body;
-        const invoice = await Invoice.create(invoiceData);
-        res.status(201).json({ message: 'Invoice created', invoice });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+      const invoices = await Invoice.find();
+      res.json(invoices);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server Error' });
     }
-};
+    
+// Create a new invoice
+exports.createInvoice = async (req, res) => {
+    const { customerName, invoiceAmount, items } = req.body;
+    try {
+      const newInvoice = new Invoice({ customerName, invoiceAmount, items });
+      const invoice = await newInvoice.save();
+      res.status(201).json(invoice);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server Error' });
+    }
+  };
 
 exports.viewInvoice = async (req, res) => {
     try {

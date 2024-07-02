@@ -3,16 +3,31 @@ const Quote = require('../models/Quote');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 
+// Create a new quote
 exports.createQuote = async (req, res) => {
+    const { customerName, quoteAmount, items } = req.body;
     try {
-        const quoteData = req.body;
-        const quote = await Quote.create(quoteData);
-        res.status(201).json({ message: 'Quote created', quote });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+      const newQuote = new Quote({ customerName, quoteAmount, items });
+      const quote = await newQuote.save();
+      res.status(201).json(quote);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server Error' });
     }
-};
+  };
 
+  // Fetch all quotes
+exports.getAllQuotes = async (req, res) => {
+    try {
+      const quotes = await Quote.find();
+      res.json(quotes);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server Error' });
+    }
+  };
+
+  
 exports.viewQuote = async (req, res) => {
     try {
         const { id } = req.params;
