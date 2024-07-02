@@ -54,14 +54,15 @@ exports.printInvoice = async (req, res) => {
       return res.status(404).json({ message: 'Invoice not found' });
     }
     const doc = new PDFDocument();
-    doc.pipe(fs.createWriteStream(`./invoices/invoice_${id}.pdf`));
+    const filePath = `./invoices/invoice_${id}.pdf`;
+    doc.pipe(fs.createWriteStream(filePath));
     doc.text(`Invoice ID: ${invoice._id}`);
     doc.text(`Customer Name: ${invoice.customerName}`);
     doc.text(`Products: ${invoice.products.join(', ')}`);
     doc.text(`Total Amount: ${invoice.totalAmount}`);
     doc.text(`Created At: ${invoice.createdAt}`);
     doc.end();
-    res.status(200).json({ message: 'Invoice printed' });
+    res.status(200).json({ message: 'Invoice printed', filePath });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
